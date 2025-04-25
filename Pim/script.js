@@ -176,6 +176,10 @@ async function Getlogin() {
 let DisplayArtist = () => {
   const artistNameElement = document.getElementById("artistName");
   const artistAboutMeElement = document.getElementById("artistAboutMe");
+  const artistLanguageElement = document.getElementById("artistLanguage");
+  const artistCountryElement = document.getElementById("artistCountry");
+  const artistCaregoryElement = document.getElementById("artistCategory");
+  const artiststatusElement = document.getElementById("artistStatus");
   const urlParams = new URLSearchParams(window.location.search);
   const artistId = urlParams.get('id');
 
