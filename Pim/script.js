@@ -218,8 +218,8 @@ document.addEventListener("DOMContentLoaded", function () {
       e.preventDefault();
 
       const name = document.getElementById("name").value;
-      const language = "English";
-      const country = "Thailand";
+      const language = getElementById("language").value;
+      const country = getElementById("country").value;
       const aboutMe = document.getElementById("Aboutme").value;
       const status = document.getElementById("status").checked ? "Available" : "Unavailable";
       const categoryText = document.getElementById("category").value;
