@@ -180,6 +180,7 @@ let DisplayArtist = () => {
   const artistCountryElement = document.getElementById("artistCountry");
   const artistCaregoryElement = document.getElementById("artistCategory");
   const artiststatusElement = document.getElementById("artistStatus");
+  const artistBasepriceElement = document.getElementById("artistBaseprice")
   const urlParams = new URLSearchParams(window.location.search);
   const artistId = urlParams.get('id');
 
@@ -194,6 +195,21 @@ let DisplayArtist = () => {
           }
           if (artistAboutMeElement) {
             artistAboutMeElement.textContent = artist.AboutMe;
+          }
+          if (artistLanguageElement) {
+            artistLanguageElement.textContent = artist.ArtistLanguage;
+          }
+          if (artistCountryElement) {
+            artistCountryElement.textContent = artist.ArtistCountry;
+          }
+          if (artistCaregoryElement) {
+            artistCaregoryElement.textContent = artist.ACID;
+          }
+          if (artiststatusElement) {
+            artiststatusElement.textContent = artist.Status;
+          }
+          if (artistBasepriceElement) {
+            artistBasepriceElement.textContent = artist.BasePrice;
           }
           // You can fetch and display other artist details here
           // For example:
@@ -222,8 +238,8 @@ document.addEventListener("DOMContentLoaded", function () {
       e.preventDefault();
 
       const name = document.getElementById("name").value;
-      const language = getElementById("language").value;
-      const country = getElementById("country").value;
+      const language = document.getElementById("language").value;
+      const country = document.getElementById("country").value;
       const aboutMe = document.getElementById("Aboutme").value;
       const status = document.getElementById("status").checked ? "Available" : "Unavailable";
       const categoryText = document.getElementById("category").value;
