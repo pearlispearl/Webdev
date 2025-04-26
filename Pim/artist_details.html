@@ -18,176 +18,278 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Art Commission Detail</title>
-  <link rel="stylesheet" href="Detail.css">
-  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Art Commission Profile</title>
+  <link rel="stylesheet" href="Artist_Information.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Preahvihear&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Preahvihear&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/jejugothic.css">
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&family=Patrick+Hand&display=swap" rel="stylesheet">
+
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script defer src="script.js"></script>
   <style>
-    /* Sidebar 样式 */
-    .sidebar {
-      height: 100%;
-      width: 0;
+    header {
+      background-color: #9cd0c0c5;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       position: fixed;
-      z-index: 1;
       top: 0;
       left: 0;
-      background-color: #111;
-      overflow-x: hidden;
-      transition: 0.5s;
-      padding-top: 60px;
+      width: 100%;
+      z-index: 1000;
     }
 
-    .sidebar a {
-      padding: 8px 8px 8px 32px;
+    .preahvihear {
+      font-family: 'Preahvihear', sans-serif;
+    }
+
+    .nav-icons a {
+      color: inherit;
       text-decoration: none;
-      font-size: 25px;
-      color: #818181;
+    }
+
+    .nav-icons a:hover {
+      color: inherit;
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 0 auto;
+      line-height: 0.6;
+    }
+
+    .logo-top {
       display: block;
-      transition: 0.3s;
+      font-weight: 600;
+      justify-content: left;
+      align-items: left;
     }
 
-    .sidebar a:hover {
-      color: #f1f1f1;
+    .logo-bottom {
+      display: block;
+      font-weight: 800;
+      justify-content: left;
+      align-items: left;
     }
 
+    .menu-btn,
     .close-btn {
-      position: absolute;
-      top: 0;
-      right: 25px;
-      font-size: 36px;
-      margin-left: 50px;
+      font-size: 1.5rem;
       background: none;
       border: none;
-      color: white;
+      cursor: pointer;
+    }
+
+    .nav-icons button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      margin: 0 5px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      left: -250px;
+      top: 0;
+      width: 250px;
+      height: 100%;
+      background: #dcd6f7;
+      transition: 0.3s;
+      padding-top: 2rem;
+      z-index: 900;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 1rem;
+    }
+
+    .sidebar ul li {
+      padding: 10px;
+    }
+
+    .sidebar ul li a {
+      text-decoration: none;
+      font-size: 1.2rem;
+      color: #333;
+    }
+
+    .sidebar.active {
+      left: 0;
     }
   </style>
 </head>
-<body>
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container-fluid">
-      <button class="btn btn-outline-light me-2" onclick="openSidebar()">
-        <i class="bi bi-list"></i>
+<body>
+  <!-- Navigation Bar -->
+  <header class="d-flex align-items-center justify-content-between px-3">
+    <button class="menu-btn" onclick="toggleMenu()"><i class="bi bi-list"></i></button>
+    <div class="logo-wrapper">
+      <h1 class="logo">
+        <span class="logo-top">ART</span>
+        <span class="logo-bottom">COMM.</span>
+      </h1>
+    </div>
+
+    <div class="nav-icons d-flex align-items-center">
+      <button><a href="search_1.html"><i class="bi bi-search"></i></a></button>
+      <h4>|</h4>
+      <div class="dropdown">
+        <button class="btn btn-outline-dark" type="button" id="langDropdown" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          EN
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="langDropdown">
+          <li><a class="dropdown-item lang-option" data-lang="en" href="#">English (EN)</a></li>
+          <li><a class="dropdown-item lang-option" data-lang="th" href="#">Thai (TH)</a></li>
+        </ul>
+      </div>
+      <button><i class="bi bi-heart-half"></i></button>
+      <button><i class="bi bi-envelope-fill"></i></button>
+      <button class="bi bi-person-circle dropdown-toggle" aria-expanded="false">
       </button>
-      <a class="navbar-brand" href="#">LOGO</a>
-      <div class="d-flex">
-        <button class="btn btn-outline-light me-2">Login</button>
-        <button class="btn btn-outline-light">Signup</button>
+  </header>
+
+  <!-- Sidebar Menu -->
+  <aside class="sidebar" id="sidebar">
+    <button class="close-btn" onclick="toggleMenu()"></button>
+    <ul>
+      <li><a href="home.html" data-en="HOME" data-th="หน้าแรก">HOME</a></li>
+      <li><a href="Product.html" data-en="PRODUCT&SERVICE" data-th="สินค้าและบริการ">PRODUCT&SERVICE</a></li>
+      <li><a href="team.html" data-en="TEAM" data-th="ทีม">TEAM</a></li>
+    </ul>
+  </aside>
+
+
+  <section class="content-wrapper preahvihear" style="margin-top: 60px;">
+
+    <div class="left-column">
+      <section class="profile-container">
+        <div class="profile-card">
+          <div class="profile">
+            <div class="avatar">
+              <img src="/image/Product_img/User.png" alt="User Avatar"
+                style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
+            </div>
+            <div class="info">
+              <h2 style=" display: inline-block; font-size:48px ;" ><span class="ArtistName" id="artistName"></span></h2>
+              <label for="txtID" style=" display: inline-block; padding-left: 5px; font-size: 30px;">ID:
+                <span class="ArtistID" id="artistID"></span></label><br>
+              <label for="country" class="bi bi-geo-alt fs-3 "> </label><span id="artistCountry" style=" float: none; padding-right: 20px; " class="country-text" data-country=""></span>
+              <label for="language" class="bi bi-chat-text fs-3  "> </label><span
+                style=" float: none; margin-top: 5px;" id="artistLanguage" class="language-text" data-language=""></span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="skill-aboutme">
+        <div style="max-width: 600px; padding-top: 10px; position: relative;">
+          <div class="form-control frame-text"
+            style="height: 104px; width: 614px;  border-radius: 28px; padding: 40px 8px 8px 8px; box-sizing: border-box; position: relative;">
+            <span id="artistAboutme"></span>
+          </div>
+          <span
+            style="position: absolute; top: 8px; left: 8px;color: #000000; font-size: 32px;" data-en="About me:" data-th="เกี่ยวกับฉัน:">About
+            me: </span>
+            
+        </div>
+        <h3 class="category-title" style="font-size: 40px;" data-en="Category" data-th="ประเภทผลงาน">Category</h3>
+        <div class="category"
+          style="text-align: center; display: inline-flex; align-items: center; gap: 8px; margin-top: 0px;">
+          <div id="artistCategory">
+          </div>
+        </div>
+      </section>
+
+      <section class="works">
+        <h3 class="works-title" data-en="My Works" data-th="ผลงานของฉัน">My Works</h3>
+        <div class="works-grid">
+          <div class="work-card" id="dynamic-work-card">
+            <a href="#" id="work-detail-link">
+              <img src="" alt="" id="work-image" />
+            </a>
+            <p id="work-about-me" style="padding: 5px; margin-bottom: 0px;"></p>
+            <p class="price" id="artistBaseprice"></p>
+            
+          </div>
+        </div>
+      </section>
+
+
+    </div>
+
+    <!-- 右边 PriceList -->
+    <div class="right-column">
+      <section class="price-list">
+        <h3 class="price-title" style="font-size: 40px;" data-en="PriceList" data-th="ตารางราคา">
+          PriceList
+        </h3>
+        <table class="pricelist-table" id="price-table">
+          <thead style="border: 1px solid #ccc;">
+            <tr>
+              <th>Single Character</th>
+              <th>Thai Baht</th>
+              <th>US Dollar</th>
+              <th>ADD CHR</th>
+            </tr>
+          </thead>
+          <tbody>
+            </tbody>
+        </table>
+      </section>
+    </div>
+    <div class="information-section">
+      <h2 style="font-size: 40px;" data-en="Information" data-th="ข้อมูลเพิ่มเติม">
+        Information
+      </h2>
+      <div class="information-box" id="info-box">
+        <h4 class="background-title" id="info-box-title"></h4>
+        <p class="background-price" id="info-box-price"></p>
+        <p class="background-note" id="info-box-note"></p>
       </div>
     </div>
-  </nav>
 
-    <!-- Sidebar -->
-  <div id="sidebar" class="sidebar">
-    <button class="close-btn" onclick="closeSidebar()">&times;</button>
-    <a href="#">Home</a>
-    <a href="#">Services</a>
-    <a href="#">Clients</a>
-    <a href="#">Contact</a>
-  </div>
+    
+      </section>
+      <div class="button-container ">
+        <a href="Artist_Save.html" class="edit-button" style="--bs-body-font-family: 'Roboto', snas-serif;font-weight: bold;font-size: 48px; text-decoration: none; "data-en="Edit" data-th="แก้ไข">Edit  
+        </a>
+        <button class="delete-button  "
+            style="--bs-body-font-family: 'Roboto', snas-serif;font-weight: bold;font-size: 48px; "data-en="Delete" data-th="ลบ">Delete</button>
+    </div>
 
-  <div class="page-wrapper">
-    <main class="main-content">
-      <!-- Artist 信息 -->
-      <section class="artist-info">
-        <div class="avatar">
-          <img src="" alt="Artist Avatar" id="artist-avatar">  </div>
-        <h2 class="artist-name" id="artist-name">Artist Name</h2>  </section>
-
-      <div class="gallery-wrapper">
-        <section class="artwork-gallery">
-          <button class="nav-button left">◀</button>
-          <div class="artwork-display">
-            <img src="" alt="Artwork" id="main-artwork">  </div>
-          <button class="nav-button right">▶</button>
-        </section>
-
-        <section class="thumbnail-gallery">
-          <button class="thumb-nav left">◀</button>
-          <div class="thumbnails" id="thumbnail-container">
-            </div>
-          <button class="thumb-nav right">▶</button>
-        </section>
-      </div>
-    </main>
-  </div>
-
-  <script>
-    const mainImage = document.getElementById('main-artwork');
-    const artistName = document.getElementById('artist-name');
-    const artistAvatar = document.getElementById('artist-avatar');
-    const thumbnailContainer = document.getElementById('thumbnail-container');
-
-    //  Assume we have data passed from the previous page
-    //  This is just example data structure, adjust as needed.
-    const artistDetail = {
-        name: "Placeholder Artist",
-        avatarSrc: "User.png",
-        artworks: [
-            { full: "work1_clear.png", preview: "preview_work1.png", alt: "Artwork 1" },
-            { full: "work2_clear.png", preview: "preview_work2.png", alt: "Artwork 2" },
-            { full: "work3_clear.png", preview: "preview_work3.png", alt: "Artwork 3" }
-        ]
-    };
-
-    //  Function to populate the page with artist details
-    function displayArtistDetails(artist) {
-        artistName.textContent = artist.name;
-        artistAvatar.src = artist.avatarSrc;
-
-        //  Display the first artwork as the main image
-        if (artist.artworks.length > 0) {
-            mainImage.src = artist.artworks[0].full;
-            mainImage.alt = artist.artworks[0].alt;
-        }
-
-        //  Generate thumbnails
-        artist.artworks.forEach(artwork => {
-            const img = document.createElement('img');
-            img.src = artwork.preview;
-            img.dataset.full = artwork.full;
-            img.alt = artwork.alt;
-            thumbnailContainer.appendChild(img);
-
-            img.addEventListener('click', () => {
-              mainImage.src = img.dataset.full;
-              mainImage.alt = img.alt;
-              thumbnails.forEach(thumb => thumb.classList.remove('active'));
-              img.classList.add('active');
-            });
-        });
-    }
-
-    const thumbnails = document.querySelectorAll('#thumbnail-container img');
-
-    thumbnails.forEach((thumb) => {
-      thumb.addEventListener('click', () => {
-        const fullImageSrc = thumb.getAttribute('data-full');
-        mainImage.src = fullImageSrc;
-        thumbnails.forEach(img => img.classList.remove('active'));
-        thumb.classList.add('active');
-      });
-    });
-
-    displayArtistDetails(artistDetail);  //  Populate the page
-
-    function openSidebar() {
-      document.getElementById("sidebar").style.width = "250px";
-    }
-
-    function closeSidebar() {
-      document.getElementById("sidebar").style.width = "0";
-    }
-  </script>
-
-<!-- Bootstrap 5 JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+    </div>
+    
+  </section>
+<script src="/js/script.js"></script>
 </body>
+
 </html>
