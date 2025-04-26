@@ -55,44 +55,29 @@
                         </div>
                           <div class="info">
                            <label for="txtArtists" id = "artistName"
-                            style="  padding-left: 5px; font-size: 30px;  "></label>h2>
+                            style="  padding-left: 5px; font-size: 30px; "></label>
                           <label for="txtID"
                                 style=" display: inline-block; padding-left: 5px; font-size: 30px;">ID:</label><br>
                           <span class="ArtistID" id="artistID" ></span></label><br>
                           <label for="country" class="bi bi-geo-alt fs-3 "> </label><span id="artistCountry" style=" float: none; padding-right: 20px; " class="country-text" data-country=""></span>
                           <label for="language" class="bi bi-chat-text fs-3  "> </label><span
                           style=" float: none; margin-top: 5px;" id="artistLanguage" class="language-text" data-language=""></span>
-                        <span id="artistStatus"></span></p>
+                          <label for="status" class="bi bi-chat-text fs-3  "> </label><span id="artistStatus"></span></p>
                           </div>
-                      
-                            
-
 
                         </div>
                     </div>
 
                     <div style="max-width: 600px; padding-top: 10px; position: relative;">
-                        <textarea id="artistAboutme" class="form-control frame-text"
+                        <textarea class="form-control frame-text"
                             style="height: 120px; width: 570px; border: 1px solid #ccc; border-radius: 5px; padding: 40px 8px 8px 8px; box-sizing: border-box; font-family: sans-serif; position: start;">
                         </textarea>
                         <span
                             style="position: absolute; top: 8px; left: 8px; font-weight: bold; color: #000000; font-size: 32px;">About
                             me:</span>
+                        <p><span id="artistAboutMe"></span></p>
                     </div>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function () {
-                            const textarea = document.getElementById('Aboutme');
-
-                            textarea.addEventListener('input', function () {
-                                // Check if the textarea is empty (ignoring leading/trailing spaces)
-                                if (textarea.value.trim() === '') {
-                                    // If empty, clear the textarea
-                                    textarea.value = '';
-                                }
-                            });
-                        });
-
-                    </script>
+                    
 
                     <h3 class="category-title" style="font-size: 40px;">Category</h3>
                     <div class="category" style="text-align: center;">
@@ -110,47 +95,9 @@
 
                 <!-- Images + Upload Button Wrapper -->
                 <div id="preview-container" style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
-                    <!-- "Add" Button -->
-                    <div class="image-upload" id="add-button"
-                        style="width: 324px; height: 216px; background-color: #B4DBD4; display: flex; justify-content: center; align-items: center; border-radius: 8px; cursor: pointer;">
-                        <input type="file" id="imageUpload" accept="image/*" style="display: none;" multiple />
-                        <i class="bi bi-plus-circle-fill fs-1" style="color: #326373;"></i>
-                    </div>
+
                 </div>
             </section>
-            <script>
-                const fileInput = document.getElementById("imageUpload");
-                const addButton = document.getElementById("add-button");
-                const previewContainer = document.getElementById("preview-container");
-
-                addButton.addEventListener("click", () => {
-                    fileInput.click();
-                });
-
-                fileInput.addEventListener("change", (event) => {
-                    const files = Array.from(event.target.files);
-
-                    files.forEach((file) => {
-                        const reader = new FileReader();
-                        reader.onload = function (e) {
-                            const img = document.createElement("img");
-                            img.src = e.target.result;
-                            img.style.width = "324px";
-                            img.style.height = "216px";
-                            img.style.objectFit = "cover";
-
-                            img.style.boxShadow = "0 2px 6px rgba(0, 0, 0, 0.15)";
-
-                            // Insert before the "Add" button
-                            previewContainer.insertBefore(img, addButton);
-                        };
-                        reader.readAsDataURL(file);
-                    });
-
-                    // Reset input so same file can be uploaded again
-                    fileInput.value = "";
-                });
-            </script>
         </div>
 
         <!-- 右边 PriceList -->
@@ -176,19 +123,6 @@
                         <i id="plusButton" class="bi bi-plus-circle-fill fs-3 "
                             style=" cursor: pointer; padding-top: 9px; color: #DF8F8F; background-color: transparent; "></i>
                     </div>
-                    <script>
-                        document.getElementById("plusButton").addEventListener("click", function () {
-                            const inputRow = document.querySelector(".input-row");
-                            const newRow = inputRow.cloneNode(true);
-
-                            // Clear the inputs in the cloned row
-                            newRow.querySelectorAll("input").forEach(input => input.value = "");
-
-                            // Insert new row before the add-row
-                            const addRow = document.querySelector(".add-row");
-                            addRow.parentNode.insertBefore(newRow, addRow);
-                        });
-                    </script>
 
                 </div>
 
@@ -200,10 +134,10 @@
                 </div>
             </section>
             <div class="button-container ">
-                <button type="submit" class="save-button  "
-                    style="--bs-body-font-family: 'Roboto', snas-serif;font-weight: bold;font-size: 48px; ">Save</button>
-                <button class="clear-button  "
-                    style="--bs-body-font-family: 'Roboto', snas-serif;font-weight: bold;font-size: 48px; ">Clear</button>
+                <button class="edit-button  "
+                    style="--bs-body-font-family: 'Roboto', snas-serif;font-weight: bold;font-size: 48px; ">Edit</button>
+                <button class="delete-button  "
+                    style="--bs-body-font-family: 'Roboto', snas-serif;font-weight: bold;font-size: 48px; ">Delete</button>
             </div>
         </div>
     </section>
