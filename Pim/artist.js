@@ -64,9 +64,32 @@ module.exports = (connection) => {
     });
   });
 
-  router.get('/artists/:artistId', (req, res) => {
+//   router.get('/artists/:artistId', (req, res) => {
+//     const artistId = req.params.artistId;
+//     connection.query("SELECT * FROM Artist WHERE ArtistID = ?", [artistId], (error, results) => {
+//       if (error) throw error;
+//       if (results.length > 0) {
+//         res.send({ error: false, data: results[0], message: `Artist details for ID: ${artistId}` });
+//       } else {
+//         res.status(404).send({ error: true, message: `Artist with ID ${artistId} not found.` });
+//       }
+//     });
+//   });
+
+router.get('/artists/:artistId', (req, res) => {
     const artistId = req.params.artistId;
-    connection.query("SELECT * FROM Artist WHERE ArtistID = ?", [artistId], (error, results) => {
+    const query = `
+    SELECT
+      a.*,
+      c.C_Name AS ArtistCategoryName
+    FROM
+      Artist a
+    JOIN
+      Category c ON a.ACID = c.CID
+    WHERE
+      a.ArtistID = ?
+  `;
+    connection.query(query, [artistId], (error, results) => {
       if (error) throw error;
       if (results.length > 0) {
         res.send({ error: false, data: results[0], message: `Artist details for ID: ${artistId}` });
@@ -86,11 +109,47 @@ module.exports = (connection) => {
     if (!artist_name) {
       return res.status(400).send({ error: true, message: 'Please provide artist name' });
     }
-    connection.query(`SELECT * FROM Artist WHERE ArtistName LIKE ?`, [`%${artist_name}%`], function (error, results) {
+    // connection.query(`SELECT * FROM Artist WHERE ArtistName LIKE ?`
+    const query = `
+    SELECT
+      a.*,
+      c.C_Name AS ArtistCategory
+    FROM
+      Artist a
+    JOIN
+      Category c ON a.ACID = c.CID
+    WHERE
+      a.ArtistName LIKE ?
+  `;
+    connection.query (query, [`%${artist_name}%`], function (error, results) {
       if (error) throw error;
       res.send({ error: false, data: results, message: 'Artists found!' });
     });
   });
+
+ // Search by baseprice
+    router.get('/baseprice/:baseprice', (req, res) => {
+    let artist_baseprice = parseFloat(req.params.baseprice);
+    // req.params.baseprice;
+    if (isNaN(artist_baseprice)) {
+        return res.status(400).send({ error: true, message: 'Please provide provide a valid base price' });
+    }
+    const query = `
+  SELECT
+      a.*,
+      c.C_Name AS ArtistCategory
+    FROM
+      Artist a
+    JOIN
+      Category c ON a.ACID = c.CID
+    WHERE
+      a.BasePrice >= ?
+  `;
+    connection.query(query, [`%${artist_baseprice}%`], function (error, results) {
+        if (error) throw error;
+        res.send({ error: false, data: results, message: 'Artists found!' });
+    });
+   });
 
   // Search by category
   router.get('/category/:categoryName', (req, res) => {
@@ -119,7 +178,18 @@ module.exports = (connection) => {
     if (!artist_status) {
       return res.status(400).send({ error: true, message: 'Please provide status' });
     }
-    connection.query(`SELECT * FROM Artist WHERE Status = ?`, [artist_status], function (error, results) {
+    const query = `
+    SELECT
+      a.*,
+      c.C_Name AS ArtistCategory
+    FROM
+      Artist a
+    JOIN
+      Category c ON a.ACID = c.CID
+    WHERE
+      a.Status = ?
+  `;
+    connection.query(query, [artist_status], function (error, results) {
       if (error) throw error;
       res.send({ error: false, data: results, message: `Artists with status "${artist_status}" found!` });
     });
@@ -132,11 +202,46 @@ module.exports = (connection) => {
     if (!artist_name || !artist_status) {
       return res.status(400).send({ error: true, message: 'Please provide both name and status' });
     }
-    connection.query(`SELECT * FROM Artist WHERE ArtistName LIKE ? AND Status = ?`, [`%${artist_name}%`, artist_status], function (error, results) {
+    const query = `
+      SELECT
+        a.*,
+        c.C_Name AS ArtistCategory
+      FROM
+        Artist a
+      JOIN
+        Category c ON a.ACID = c.CID
+      WHERE
+        a.ArtistName LIKE ? AND a.Status = ?
+    `;
+    connection.query(query, [`%${artist_name}%`, artist_status], function (error, results) {
       if (error) throw error;
       res.send({ error: false, data: results, message: `Artists found with name "${artist_name}" and status "${artist_status}"` });
     });
   });
+
+    // Search by name + category
+    router.get('/namecategory/:name/:category', (req, res) => {
+        let artist_name = req.params.name;
+        let artist_category = req.params.category;
+        if (!artist_name || !artist_category) {
+          return res.status(400).send({ error: true, message: 'Please provide both name and category' });
+        }
+        const query = `
+          SELECT
+            a.*,
+            c.C_Name AS ArtistCategory
+          FROM
+            Artist a
+          JOIN
+            Category c ON a.ACID = c.CID
+          WHERE
+            a.ArtistName LIKE ? AND a.ACID = ?
+        `;
+        connection.query(query, [`%${artist_name}%`, artist_category], function (error, results) {
+            if (error) throw error;
+            res.send({ error: false, data: results, message: `Artists found with name "${artist_name}" and category ID "${artist_category}"` });
+          });
+        });
 
   return router;
 };
