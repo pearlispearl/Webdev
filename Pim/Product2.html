@@ -43,7 +43,6 @@
         </ul>
     </aside>
     <section class="content-wrapper preahvihear" style="margin-top: 60px;">
-        <form id="artistForm">
         <!-- 左边整体 -->
         <div class="left-column">
             <section class="profile-container">
@@ -54,35 +53,26 @@
                             <img src="/image/Product_img/User.png" alt="User Avatar"
                                 style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
                         </div>
-                        <div class="info">
-                            <label for="txtArtists"
-                            style="  padding-left: 5px; font-size: 30px;  "></label>
-                            <input type="text" id="name" style="background-color: transparent; border: none;
-                            font-size: 30px; color: #000000;" placeholder="Artist"><br>
-                            <label for="txtID"
+                          <div class="info">
+                           <label for="txtArtists" id = "artistName"
+                            style="  padding-left: 5px; font-size: 30px;  "></label>h2>
+                          <label for="txtID"
                                 style=" display: inline-block; padding-left: 5px; font-size: 30px;">ID:</label><br>
-                            <!-- <input type="text" id="ID"
-                                style="padding: none; border: none; width: 100px;padding: 0%; font-size: 30px;"><br> -->
-
-                            <label for="country" class="bi bi-geo-alt fs-3 "> </label><span
-                                style=" float: none; "></span>
-                            <select id="country" name="Country" class="form-control">
-                                <option>Country</option>
-                                <option value="Afghanistan">Afghanistan</option>
-                                <option value="Åland Islands">Åland Islands</option>
-                                
-                            </select>
-                            <label
-                                style="font-size: 0.7em; font-family: Arial, Helvetica, sans-serif; padding-top: 5px; font-size: 18px; padding-left: 10px;">
-                                <input id= "status" type="checkbox" value="Available" checked> Available
-                            </label><br>
+                          <span class="ArtistID" id="artistID" ></span></label><br>
+                          <label for="country" class="bi bi-geo-alt fs-3 "> </label><span id="artistCountry" style=" float: none; padding-right: 20px; " class="country-text" data-country=""></span>
+                          <label for="language" class="bi bi-chat-text fs-3  "> </label><span
+                          style=" float: none; margin-top: 5px;" id="artistLanguage" class="language-text" data-language=""></span>
+                        <span id="artistStatus"></span></p>
+                          </div>
+                      
+                            
 
 
                         </div>
                     </div>
 
                     <div style="max-width: 600px; padding-top: 10px; position: relative;">
-                        <textarea id="Aboutme" class="form-control frame-text"
+                        <textarea id="artistAboutme" class="form-control frame-text"
                             style="height: 120px; width: 570px; border: 1px solid #ccc; border-radius: 5px; padding: 40px 8px 8px 8px; box-sizing: border-box; font-family: sans-serif; position: start;">
                         </textarea>
                         <span
@@ -106,16 +96,7 @@
 
                     <h3 class="category-title" style="font-size: 40px;">Category</h3>
                     <div class="category" style="text-align: center;">
-                        <div style="display: inline-flex; align-items: center; gap: 8px;">
-                            <select id= "category" name="Categories" class="bi bi-plus-circle-fill fs-5 skill-tag"
-                                style="color: #326373; cursor: pointer; padding-top: 9px; ">
-                                <option value="All">All</option>
-                                <option value="Anime Style">Anime Style</option>
-                                <option value="Realism">Realism</option>
-                                <option value="Cartoon">Cartoon</option>
-                                <option value="Pixel Art">Pixel Art</option>
-                                <option value="Chibi">Chibi</option>
-                            </select>
+                        <div style="display: inline-flex; align-items: center; gap: 8px;" id="artistCategory">
 
                             <div id="container" style="display: inline-flex; gap: 8px; "></div>
                   
@@ -184,8 +165,8 @@
                 </div>
 
                 <div class="table-row input-row">
-                    <div class="table-cell"><input type="text" style="text-align: center;"></div>
-                    <div class="table-cell"><input type="text" style="text-align: center;"></div>
+                    <div class="table-cell"></div>
+                    <div class="table-cell"></div>
                     <div class="table-cell"></div>
                     <div class="table-cell"></div>
                 </div>
@@ -225,7 +206,6 @@
                     style="--bs-body-font-family: 'Roboto', snas-serif;font-weight: bold;font-size: 48px; ">Clear</button>
             </div>
         </div>
-    </form>
     </section>
     <script type="text/javascript" src="/js/script.js"></script>
 </body>
