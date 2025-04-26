@@ -200,9 +200,15 @@
   <!-- has Change -->
      <main>
         <div class="gallery" id="artist-gallery-container"></div>
+         <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      displaySearchResults();
+    });
+  </script>
 
         <!-- Gemini add script -->
         <script type="text/template" id="artist-card-template">
+
             <div class="card">
                 <img src="{{imageSrc}}" alt="{{imageAlt}}">
                 <p id="txtArtist"><strong>{{artistName}}</strong></p>
