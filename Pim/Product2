@@ -1,0 +1,233 @@
+
+        
+
+</head>
+
+<body class="bg-light py-4">
+    <!-- Navigation Bar -->
+    <header class="d-flex align-items-center justify-content-between px-3">
+        <button class="menu-btn" onclick="toggleMenu()"><i class="bi bi-list"></i></button>
+        <div class="logo-wrapper">
+            <h1 class="logo">
+                <span class="logo-top">ART</span>
+                <span class="logo-bottom">COMM.</span>
+            </h1>
+        </div>
+
+        <div class="nav-icons d-flex align-items-center">
+            <button><a href="search_1.html"><i class="bi bi-search"></i></a></button>
+            <h4>|</h4>
+            <div class="dropdown">
+                <button class="btn btn-outline-dark" type="button" id="langDropdown" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    EN
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="langDropdown">
+                    <li><a class="dropdown-item lang-option" data-lang="en" href="#">English (EN)</a></li>
+                    <li><a class="dropdown-item lang-option" data-lang="th" href="#">Thai (TH)</a></li>
+                </ul>
+            </div>
+            <button><i class="bi bi-heart-half"></i></button>
+            <button><i class="bi bi-envelope-fill"></i></button>
+            <button class="bi bi-person-circle dropdown-toggle" aria-expanded="false">
+            </button>
+    </header>
+
+    <!-- Sidebar Menu -->
+    <aside class="sidebar" id="sidebar">
+        <button class="close-btn" onclick="toggleMenu()"></button>
+        <ul>
+            <li><a href="home.html" data-en="HOME" data-th="หน้าแรก">HOME</a></li>
+            <li><a href="Product.html" data-en="PRODUCT&SERVICE" data-th="สินค้าและบริการ">PRODUCT&SERVICE</a></li>
+            <li><a href="team.html" data-en="TEAM" data-th="ทีม">TEAM</a></li>
+        </ul>
+    </aside>
+    <section class="content-wrapper preahvihear" style="margin-top: 60px;">
+        <form id="artistForm">
+        <!-- 左边整体 -->
+        <div class="left-column">
+            <section class="profile-container">
+                
+                <div class="profile-card">
+                    <div class="profile">
+                        <div class="avatar">
+                            <img src="/image/Product_img/User.png" alt="User Avatar"
+                                style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
+                        </div>
+                        <div class="info">
+                            <label for="txtArtists"
+                            style="  padding-left: 5px; font-size: 30px;  "></label>
+                            <input type="text" id="name" style="background-color: transparent; border: none;
+                            font-size: 30px; color: #000000;" placeholder="Artist"><br>
+                            <label for="txtID"
+                                style=" display: inline-block; padding-left: 5px; font-size: 30px;">ID:</label><br>
+                            <!-- <input type="text" id="ID"
+                                style="padding: none; border: none; width: 100px;padding: 0%; font-size: 30px;"><br> -->
+
+                            <label for="country" class="bi bi-geo-alt fs-3 "> </label><span
+                                style=" float: none; "></span>
+                            <select id="country" name="Country" class="form-control">
+                                <option>Country</option>
+                                <option value="Afghanistan">Afghanistan</option>
+                                <option value="Åland Islands">Åland Islands</option>
+                                
+                            </select>
+                            <label
+                                style="font-size: 0.7em; font-family: Arial, Helvetica, sans-serif; padding-top: 5px; font-size: 18px; padding-left: 10px;">
+                                <input id= "status" type="checkbox" value="Available" checked> Available
+                            </label><br>
+
+
+                        </div>
+                    </div>
+
+                    <div style="max-width: 600px; padding-top: 10px; position: relative;">
+                        <textarea id="Aboutme" class="form-control frame-text"
+                            style="height: 120px; width: 570px; border: 1px solid #ccc; border-radius: 5px; padding: 40px 8px 8px 8px; box-sizing: border-box; font-family: sans-serif; position: start;">
+                        </textarea>
+                        <span
+                            style="position: absolute; top: 8px; left: 8px; font-weight: bold; color: #000000; font-size: 32px;">About
+                            me:</span>
+                    </div>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const textarea = document.getElementById('Aboutme');
+
+                            textarea.addEventListener('input', function () {
+                                // Check if the textarea is empty (ignoring leading/trailing spaces)
+                                if (textarea.value.trim() === '') {
+                                    // If empty, clear the textarea
+                                    textarea.value = '';
+                                }
+                            });
+                        });
+
+                    </script>
+
+                    <h3 class="category-title" style="font-size: 40px;">Category</h3>
+                    <div class="category" style="text-align: center;">
+                        <div style="display: inline-flex; align-items: center; gap: 8px;">
+                            <select id= "category" name="Categories" class="bi bi-plus-circle-fill fs-5 skill-tag"
+                                style="color: #326373; cursor: pointer; padding-top: 9px; ">
+                                <option value="All">All</option>
+                                <option value="Anime Style">Anime Style</option>
+                                <option value="Realism">Realism</option>
+                                <option value="Cartoon">Cartoon</option>
+                                <option value="Pixel Art">Pixel Art</option>
+                                <option value="Chibi">Chibi</option>
+                            </select>
+
+                            <div id="container" style="display: inline-flex; gap: 8px; "></div>
+                  
+                        </div>
+                    </div>
+                
+            </section>
+
+            <section class="works">
+                <h3 class="works-title" style="font-size: 40px;">My Works</h3>
+
+                <!-- Images + Upload Button Wrapper -->
+                <div id="preview-container" style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
+                    <!-- "Add" Button -->
+                    <div class="image-upload" id="add-button"
+                        style="width: 324px; height: 216px; background-color: #B4DBD4; display: flex; justify-content: center; align-items: center; border-radius: 8px; cursor: pointer;">
+                        <input type="file" id="imageUpload" accept="image/*" style="display: none;" multiple />
+                        <i class="bi bi-plus-circle-fill fs-1" style="color: #326373;"></i>
+                    </div>
+                </div>
+            </section>
+            <script>
+                const fileInput = document.getElementById("imageUpload");
+                const addButton = document.getElementById("add-button");
+                const previewContainer = document.getElementById("preview-container");
+
+                addButton.addEventListener("click", () => {
+                    fileInput.click();
+                });
+
+                fileInput.addEventListener("change", (event) => {
+                    const files = Array.from(event.target.files);
+
+                    files.forEach((file) => {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            const img = document.createElement("img");
+                            img.src = e.target.result;
+                            img.style.width = "324px";
+                            img.style.height = "216px";
+                            img.style.objectFit = "cover";
+
+                            img.style.boxShadow = "0 2px 6px rgba(0, 0, 0, 0.15)";
+
+                            // Insert before the "Add" button
+                            previewContainer.insertBefore(img, addButton);
+                        };
+                        reader.readAsDataURL(file);
+                    });
+
+                    // Reset input so same file can be uploaded again
+                    fileInput.value = "";
+                });
+            </script>
+        </div>
+
+        <!-- 右边 PriceList -->
+        <div class="right-column">
+            <section class="price-list">
+                <h3 class="price-title" style="font-size: 40px;">PriceList</h3>
+                <div class="table-row header-row">
+                    <div class="table-cell">Single Character</div>
+                    <div class="table-cell">Thai Baht</div>
+                    <div class="table-cell">US Dollar</div>
+                    <div class="table-cell">ADD CHR</div>
+                </div>
+
+                <div class="table-row input-row">
+                    <div class="table-cell"><input type="text" style="text-align: center;"></div>
+                    <div class="table-cell"><input type="text" style="text-align: center;"></div>
+                    <div class="table-cell"></div>
+                    <div class="table-cell"></div>
+                </div>
+
+                <div class="table-row add-row">
+                    <div class="table-cell" colspan="4">
+                        <i id="plusButton" class="bi bi-plus-circle-fill fs-3 "
+                            style=" cursor: pointer; padding-top: 9px; color: #DF8F8F; background-color: transparent; "></i>
+                    </div>
+                    <script>
+                        document.getElementById("plusButton").addEventListener("click", function () {
+                            const inputRow = document.querySelector(".input-row");
+                            const newRow = inputRow.cloneNode(true);
+
+                            // Clear the inputs in the cloned row
+                            newRow.querySelectorAll("input").forEach(input => input.value = "");
+
+                            // Insert new row before the add-row
+                            const addRow = document.querySelector(".add-row");
+                            addRow.parentNode.insertBefore(newRow, addRow);
+                        });
+                    </script>
+
+                </div>
+
+                <div class="information-section">
+                    <h2 style="font-size: 40px;">Information</h2>
+                    <div class="information-box">
+                        <textarea></textarea>
+                    </div>
+                </div>
+            </section>
+            <div class="button-container ">
+                <button type="submit" class="save-button  "
+                    style="--bs-body-font-family: 'Roboto', snas-serif;font-weight: bold;font-size: 48px; ">Save</button>
+                <button class="clear-button  "
+                    style="--bs-body-font-family: 'Roboto', snas-serif;font-weight: bold;font-size: 48px; ">Clear</button>
+            </div>
+        </div>
+    </form>
+    </section>
+    <script type="text/javascript" src="/js/script.js"></script>
+</body>
+
+</html>
