@@ -5,29 +5,6 @@ const translatableElements = document.querySelectorAll("[data-en]");
 
 const rooturl = "http://localhost:3031/"
 
-// let getArtists = () => {
-//   divOutput = document.getElementById("output");
-//   fetch(rooturl + "artists").then((res) => {
-//     if (res.ok) {
-//       return res.json();
-//     }
-//   }).then((data) => {
-//     artists = data.data;
-//     output = "<h1 class='list'>Artist List<h1>";
-//     output += "<article class='container'>";
-
-//     artists.forEach(artist => {
-//       output += "<article class='column'>";
-//       output += "<p>" + artist.ArtistName + "</p>"
-//       output += "<p>" + artist.AboutMe + "</p>"
-//       output += "</article>"
-//     });
-
-//     output += "</article>"
-//     divOutput.innerHTML = output;
-//   })
-// }
-
 let DisplayUser = () => {
   const Usernamep = document.getElementById("username-placeholder");
   const username = localStorage.getItem("Username");
@@ -149,6 +126,7 @@ let DisplayArtist = () => {
   const artiststatusElement = document.getElementById("artistStatus");
   const artistIDElement = document.getElementById("artistID");
   const artistBasepriceElement = document.getElementById("artistBaseprice")
+  const artistPhotoElement = document.getElementById("artist-photo");
   const urlParams = new URLSearchParams(window.location.search);
   const artistId = urlParams.get('id');
 
@@ -158,6 +136,9 @@ let DisplayArtist = () => {
       .then(data => {
         if (!data.error && data.data) {
           const artist = data.data;
+          if (artistPhotoElement ) {
+            artistPhotoElement.src = artist.PhotoPath;
+          }
           if (artistNameElement) {
             artistNameElement.textContent = artist.ArtistName;
           }
@@ -182,7 +163,7 @@ let DisplayArtist = () => {
           if (artistIDElement) {
             artistIDElement.textContent = artist.ArtistID;
           }
-
+          
         } else {
           alert("Error: Could not retrieve artist details.");
         }
@@ -202,7 +183,7 @@ let getArtists = () => {
   const availableRadio = document.getElementById("available");
   const allRadio = document.getElementById("all");
   const basePriceInput = document.getElementById("baseprice"); // Get the input element
-  const basePrice = basePriceInput ? basePriceInput.value.trim() : "";  
+  const basePrice = basePriceInput ? basePriceInput.value.trim() : "";
   let status = "";
 
   if (availableRadio && availableRadio.checked) {
@@ -210,10 +191,10 @@ let getArtists = () => {
   } else if (allRadio && allRadio.checked) {
     status = "all"; // "Show all" means no status filter
   }
-
-  const divOutput = document.getElementById("output");
+  const rooturl = "http://localhost:3031/"; // Ensure this is correct
+  // const divOutput = document.getElementById("output");
   let apiUrl = rooturl + "artist/artists"; // Default URL to get all artists
-  
+
   const categoryMapReverse = {
     "Anime Style": "CAT000000001",
     "Realism": "CAT000000002",
@@ -234,8 +215,8 @@ let getArtists = () => {
   }
   else if (name && categoryId && status !== "") {
     apiUrl = `${rooturl}artist/statuscategoryname/${encodeURIComponent(status)}/${encodeURIComponent(categoryId)}/${encodeURIComponent(name)}`;
-  }  
-  else if (basePrice && status  ) {
+  }
+  else if (basePrice && status) {
     apiUrl = `${rooturl}artist/statusbaseprice/${encodeURIComponent(status)}/${encodeURIComponent(basePrice)}`;
   }
   else if (name && status !== "") { // Search by name and a specific status
@@ -244,7 +225,7 @@ let getArtists = () => {
   else if (categoryId && status !== "") { // status + category
     apiUrl = `${rooturl}artist/statuscategory/${encodeURIComponent(status)}/${encodeURIComponent(categoryId)}`;
   }
-  
+
 
   fetch(apiUrl)
     .then((res) => {
@@ -256,48 +237,100 @@ let getArtists = () => {
     })
     .then((data) => {
       const artists = data.data;
-      let output = "<h1 class='list'>Search Results</h1>";
-      if (artists && artists.length > 0) {
-        output += "<article class='container'>";
-        artists.forEach(artist => {
-          output += "<article class='column'>";
-          output += `<p><strong>Name:</strong> ${artist.ArtistName}</p>`;
-          output += `<p><strong>About me:</strong> ${artist.AboutMe}</p>`;
-          // const categoryName = artist.ArtistCategory ||
-          //   (artist.ACID && Object.entries(categoryMapReverse).find(([name, id]) => id === artist.ACID)?.[0]) ||
-          //   'Unknown Category';
-          output +=  `<p><strong>Base Price:</strong> ${artist.BasePrice}</p>`;
-          output += `<p><strong>Category:</strong> ${artist.ArtistCategory || artist.ACID}</p>`; // Display category name if available
-          output += `<p><strong>Status:</strong> ${artist.Status}</p>`;
-          output += "</article>";
-        });
-        output += "</article>";
-      } else {
-        output += "<p>No artists found matching your criteria.</p>";
-      }
-      divOutput.innerHTML = output;
+      // let output = "<h1 class='list'>Search Results</h1>";
+      // if (artists && artists.length > 0) {
+      //   output += "<article class='container'>";
+      //   artists.forEach(artist => {
+      //     output += "<article class='column'>";
+      //     output += `<p><strong>Name:</strong> ${artist.ArtistName}</p>`;
+      //     output += `<p><strong>About me:</strong> ${artist.AboutMe}</p>`;
+      //     // const categoryName = artist.ArtistCategory ||
+      //     //   (artist.ACID && Object.entries(categoryMapReverse).find(([name, id]) => id === artist.ACID)?.[0]) ||
+      //     //   'Unknown Category';
+      //     output += `<p><strong>Base Price:</strong> ${artist.BasePrice}</p>`;
+      //     output += `<p><strong>Category:</strong> ${artist.ArtistCategory || artist.ACID}</p>`; // Display category name if available
+      //     output += `<p><strong>Status:</strong> ${artist.Status}</p>`;
+      //     output += "</article>";
+      //   });
+      //   output += "</article>";
+      // } else {
+      //   output += "<p>No artists found matching your criteria.</p>";
+      // }
+      
+      localStorage.setItem('searchResults', JSON.stringify(artists || []));
+      window.location.href = `/search_artist`;
+      // divOutput.innerHTML = output;
+      
     })
 
-    // result.data.forEach(artist => {
-    //   const card = document.createElement('div');
-    //   card.className = 'card';
-    //   card.innerHTML = `
-    //     <img src="/image/Product_img/User.png" alt="${artist.ArtistName}'s profile">
-    //     <div class="card-body">
-    //       <h5 class="card-title">${artist.ArtistName}</h5>
-    //       <p class="card-text">${artist.AboutMe ? artist.AboutMe.substring(0, 100) + (artist.AboutMe.length > 100 ? '...' : '') : 'No description available.'}</p>
-    //       <p class="card-price">From: $${artist.BasePrice}</p>
-    //       <a href="/artist_details?id=${artist.ArtistID}" class="btn btn-primary">View Details</a>
-    //     </div>
-    //   `;
-    //   resultsContainer.appendChild(card);
+    // .catch((error) => {
+    //   console.error("Error fetching artists:", error);
+    //   divOutput.innerHTML = "<p>Failed to load artists.</p>";
     // });
-    
     .catch((error) => {
       console.error("Error fetching artists:", error);
-      divOutput.innerHTML = "<p>Failed to load artists.</p>";
+      localStorage.setItem('searchResultsError', "Failed to load artists.");
+      window.location.href = '/search_artist';
     });
-};            
+};
+
+function displaySearchResults() {
+  if (!window.location.pathname.includes("search_artist")) {
+    return;
+  }
+  const resultsContainer = document.getElementById('container');
+  if (!resultsContainer) {
+    console.error("Results container not found on page");
+    return;
+  }
+  const searchResultsJSON = localStorage.getItem('searchResults');
+  const searchResultsError = localStorage.getItem('searchResultsError');
+
+
+ // Clear storage after reading
+ localStorage.removeItem('searchResultsError');
+  
+ if (searchResultsError) {
+   resultsContainer.innerHTML = `<p class="error-message">${searchResultsError}</p>`;
+   return;
+ }
+      if (searchResultsError) {
+          resultsContainer.innerHTML = `<p class="error-message">${searchResultsError}</p>`;
+          return;
+      }
+
+      if (searchResultsJSON) {
+          const artists = JSON.parse(searchResultsJSON);
+          if (artists && artists.length > 0) {
+              let output = '';
+              artists.forEach(artist => {
+                // Create artist card HTML
+        output += `
+        <div class="artist-card">
+          <div class="artist-image">
+            <img src="${artist.PhotoPath || '/image/Product_img/User.png'}" 
+                 alt="${artist.ArtistName}" 
+                 onerror="this.src='/image/Product_img/User.png'">
+          </div>
+          <div class="artist-info">
+            <h3>${artist.ArtistName}</h3>
+            <p class="artist-description">${artist.AboutMe || 'No description available.'}</p>
+            <p class="artist-price">Price: ${artist.BasePrice}</p>
+            <a href="/artist_details?id=${artist.ArtistID}" class="view-button">View Details</a>
+          </div>
+        </div>`;
+      });
+              resultsContainer.innerHTML = output;
+          } else {
+              resultsContainer.innerHTML = '<p>No artists found matching your search criteria.</p>';
+          }
+      } else {
+          resultsContainer.innerHTML = '<p>No search results available.</p>';
+      }
+  }
+
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("artistForm");
@@ -312,17 +345,30 @@ document.addEventListener("DOMContentLoaded", function () {
       const aboutMe = document.getElementById("Aboutme").value;
       const status = document.getElementById("status").checked ? "Available" : "Unavailable";
       const categoryText = document.getElementById("category").value;
-      const BasePrice = document.getElementById("basepriceip").value;
+      const BasePrice = document.getElementById("baseprice").value;
+      const photoURL = document.getElementById("photoURL").value;
+      
       const categoryMap = {
         "Anime Style": "CAT000000001",
         "Realism": "CAT000000002",
         "Cartoon": "CAT000000003",
         "Pixel Art": "CAT000000004",
         "Chibi": "CAT000000005"
-
       };
+
+
       const ACID = categoryMap[categoryText] || "CAT000000001";
-      const artistData = { ArtistName: name, ArtistLanguage: language, ArtistCountry: country, ACID: ACID, BasePrice: BasePrice, Status: status, AboutMe: aboutMe };
+      
+      const artistData = {
+        ArtistName: name,
+        ArtistLanguage: language,
+        ArtistCountry: country,
+        ACID: ACID,
+        BasePrice: BasePrice,
+        Status: status,
+        AboutMe: aboutMe,
+        photoURL: photoURL // Add the photo URL
+      };
 
       try {
         const response = await fetch("http://localhost:3031/artist/add", {
@@ -330,6 +376,7 @@ document.addEventListener("DOMContentLoaded", function () {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(artistData)
         });
+
         const result = await response.json();
         if (result.error) {
           alert("Error: " + result.message);
@@ -343,6 +390,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Request failed:", error);
         alert("❌ Failed to add artist. Please check your connection.");
       }
+      
     });
 
   }
@@ -358,21 +406,29 @@ document.addEventListener("DOMContentLoaded", function () {
       btnClear.addEventListener("click", () => {
         document.getElementById("category").value = "";
         document.getElementById("name").value = "";
-        document.getElementById("status").value = "";
+        document.getElementById("baseprice").value = "";
         document.getElementById("output").innerHTML = "";
       });
     }
+
   }
 
+  if (window.location.pathname.includes("search_artist")) {
+    displaySearchResults();
+  }
+
+  
+
+  // Add this to your script.js file
   async function deleteArtist() {
     const urlParams = new URLSearchParams(window.location.search);
     const artistId = urlParams.get('id');
-    
+
     if (!artistId) {
       alert("Error: No artist ID found");
       return;
     }
-    
+
     if (confirm("Are you sure you want to delete this artist?")) {
       try {
         const response = await fetch(`${rooturl}artist/delete`, {
@@ -380,7 +436,7 @@ document.addEventListener("DOMContentLoaded", function () {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ ArtistID: artistId })
         });
-        
+
         const result = await response.json();
         if (!result.error) {
           alert("Artist deleted successfully!");
@@ -395,20 +451,18 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
   }
-  
+
   // Connect this function to your delete button
-  document.addEventListener("DOMContentLoaded", function() {
-    // Your existing code
-  
-    // Add event listener for delete button if it exists on the page
-    const deleteButton = document.querySelector("delete-button");
-    if (deleteButton) {
-      deleteButton.addEventListener("click", deleteArtist);
-    }
-  });
+  // Modify your existing code in the DOMContentLoaded event listener
+
 
   if (window.location.pathname.includes("artist_details")) {
     DisplayArtist(); // Call DisplayArtist on the details page
+
+    const deleteButton = document.getElementById("delete-button");
+    if (deleteButton) {
+      deleteButton.addEventListener("click", deleteArtist);
+    }
   }
 
   if (window.location.pathname.includes("admin_login")) {
@@ -416,29 +470,14 @@ document.addEventListener("DOMContentLoaded", function () {
       Getlogin()
     })
   }
-  if (window.location.pathname.includes("search")) {
-    document.getElementById("btnSearch").addEventListener("click", function () {
-      getArtists()
-    })
-  }
+  // if (window.location.pathname.includes("search")) {
+  //   document.getElementById("btnSearch").addEventListener("click", function () {
+  //     getArtists()
+  //   })
+  // }
 });
 
 
 
 
 
-
-// fetch(`${rooturl}admin?username=${encodeURIComponent(username)}`)
-//     .then((res) => res.json())
-//     .then((data) => {
-//       console.log("Fetched admin data:", data); // optional debug
-//       if (data.data && data.data.Username) {
-//         artistName.innerHTML = `👋 ${data.data.Username}`;
-//       } else {
-//         artistName.innerHTML = `👋 User`;
-//       }
-//     })
-//     .catch((err) => {
-//       console.error("Error fetching user data:", err);
-//       Usernamep.innerHTML = "👋 User";
-//     });
