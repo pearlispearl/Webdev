@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Art Commission Detail</title>
+  <link rel="stylesheet" href="Detail.css">
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Preahvihear&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Preahvihear&display=swap" rel="stylesheet">
+
+  <!-- nav-bar -->
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script defer src="script.js"></script>
+  <style>
+    header {
+      background-color: #9cd0c0c5;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .nav-icons a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .nav-icons a:hover {
+      color: inherit;
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 0 auto;
+      line-height: 0.6;
+    }
+
+    .logo-top {
+      display: block;
+      font-weight: 600;
+      justify-content: left;
+      align-items: left;
+    }
+
+    .logo-bottom {
+      display: block;
+      font-weight: 800;
+      justify-content: left;
+      align-items: left;
+    }
+
+    .menu-btn,
+    .close-btn {
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .nav-icons button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      margin: 0 5px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      left: -250px;
+      top: 0;
+      width: 250px;
+      height: 100%;
+      background: #dcd6f7;
+      transition: 0.3s;
+      padding-top: 2rem;
+      z-index: 900;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 1rem;
+    }
+
+    .sidebar ul li {
+      padding: 10px;
+    }
+
+    .sidebar ul li a {
+      text-decoration: none;
+      font-size: 1.2rem;
+      color: #333;
+    }
+
+    .sidebar.active {
+      left: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+ <!-- Navigation Bar -->
+ <header class="d-flex align-items-center justify-content-between px-3">
+  <button class="menu-btn" onclick="toggleMenu()"><i class="bi bi-list"></i></button>
+  <div class="logo-wrapper">
+    <h1 class="logo">
+      <span class="logo-top">ART</span>
+      <span class="logo-bottom">COMM.</span>
+    </h1>
+  </div>
+
+  <div class="nav-icons d-flex align-items-center">
+    <button><a href="/search"><i class="bi bi-search"></i></a></button>
+    <h4>|</h4>
+    <div class="dropdown">
+      <button class="btn btn-outline-dark" type="button" id="langDropdown" data-bs-toggle="dropdown"
+        aria-expanded="false">
+        EN
+      </button>
+      <ul class="dropdown-menu" staria-labelledby="langDropdown">
+        <li><a class="dropdown-item lang-option" data-lang="en" href="#">English (EN)</a></li>
+        <li><a class="dropdown-item lang-option" data-lang="th" href="#">Thai (TH)</a></li>
+      </ul>
+    </div>
+    <button><i class="bi bi-heart-half"></i></button>
+    <button><i class="bi bi-envelope-fill"></i></button>
+    <button class="bi bi-person-circle dropdown-toggle" aria-expanded="false">
+    </button>
+</header>
+
+  <!-- Sidebar Menu -->
+  <aside class="sidebar" id="sidebar">
+    <button class="close-btn" onclick="toggleMenu()"></button>
+    <ul>
+      <li><a href="/home" data-en="HOME" data-th="หน้าแรก">HOME</a></li>
+      <li><a href="/product" data-en="PRODUCT&SERVICE" data-th="สินค้าและบริการ">PRODUCT&SERVICE</a></li>
+      <li><a href="/team" data-en="TEAM" data-th="ทีม">TEAM</a></li>
+    </ul>
+  </aside>
+
+  <div class="page-wrapper  ">
+    <main class="main-content">
+      <!-- Artist 信息 -->
+      <section class="artist-info">
+        <div class="avatar">
+          <img src="/image/Detail_Page/User.png" alt="Artist Avatar">
+        </div>
+        <h2 class="col-md-5 artist-name  " data-en="Artist" data-th="ศิลปิน">Artist</h2>
+      </section>
+
+      <!-- 整体画廊区域 -->
+      <div class="gallery-wrapper">
+        <!-- 作品大图浏览区 -->
+        <section class="artwork-gallery">
+          <button class="nav-left bi bi-caret-left"></button>
+          <div class="artwork-display">
+            <img src="/image/Detail_Page/Work1_clear.png" alt="Artwork 1" id="main-artwork">
+          </div>
+          <button class="nav-right bi bi-caret-right"></button>
+        </section>
+
+        <!-- 缩略图区 -->
+        <section class="thumbnail-gallery">
+          <button class="thumb-left bi bi-caret-left"></button>
+          <div class="thumbnails">
+            <img src="/image/Detail_Page/preview_work1.png" data-full="/image/Detail_Page/work1_clear.png"
+              alt="Thumb 1">
+            <img src="/image/Detail_Page/preview_work2.png" data-full="/image/Detail_Page/work2_clear.png"
+              alt="Thumb 2">
+            <img src="/image/Detail_Page/preview_work3.png" data-full="/image/Detail_Page/work3_clear.png"
+              alt="Thumb 3">
+          </div>
+          <button class="thumb-right bi bi-caret-right"></button>
+        </section>
+      </div>
+    </main>
+  </div>
+
+
+  <script>
+    const mainImage = document.getElementById('main-artwork');
+    const thumbnails = document.querySelectorAll('.thumbnails img');
+
+    const imageList = Array.from(thumbnails).map(img => img.getAttribute('data-full'));
+    let currentIndex = 0;
+
+    function updateMainImageByIndex(index) {
+      currentIndex = index;
+      mainImage.src = imageList[currentIndex];
+      thumbnails.forEach(img => img.classList.remove('active'));
+      thumbnails[currentIndex].classList.add('active');
+    }
+
+    // Handle thumbnail clicks
+    thumbnails.forEach((thumb, index) => {
+      thumb.addEventListener('click', () => {
+        updateMainImageByIndex(index);
+      });
+    });
+
+    // Handle left button clicks
+    document.querySelectorAll('.nav-left, .thumb-left').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const newIndex = (currentIndex - 1 + imageList.length) % imageList.length;
+        updateMainImageByIndex(newIndex);
+      });
+    });
+
+    // Handle right button clicks
+    document.querySelectorAll('.nav-right, .thumb-right').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const newIndex = (currentIndex + 1) % imageList.length;
+        updateMainImageByIndex(newIndex);
+      });
+    });
+
+    // Start with the first image active
+    updateMainImageByIndex(currentIndex);
+  </script>
+  <script type="text/javascript" src="/js/script.js"></script>
+</body>
+
+</html>
