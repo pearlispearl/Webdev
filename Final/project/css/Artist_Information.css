@@ -1,0 +1,264 @@
+body {
+  background:
+      linear-gradient(rgba(240, 240, 240, 0.6), rgba(240, 240, 240, 0.99)),
+      url("image/background.png");
+  background-size: cover;
+  background-attachment: fixed;
+  width: 100%;
+}
+
+.content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 85%; /* ✅收紧整体 */
+  margin: 0 auto;
+  gap: 1.5rem; /* ✅ 缩小左右的间隔 */
+}
+.frame-text {
+  padding: 10px;
+  background-color: #FBF5DD !important;
+  font-size: 16px;
+  box-sizing: border-box;
+
+}
+.form-control {
+  width: 105px;
+  font-size: 18px;
+  display: inline-block;
+  padding: 4px;
+  color: none;
+  border: none;
+  opacity: 70%;
+  border-radius: 28px;
+}
+
+
+
+.left-column {
+  flex: 0 0 58%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+
+
+/* 右边Price List */
+.right-column {
+  flex: 0 0 40%;
+  margin-left: 1rem;
+  margin-top: -3rem;
+  margin-bottom: auto;
+}
+
+/* Profile卡片 */
+.profile-card {
+  padding: 2rem;
+  border-radius: 20px;
+  width: 85%;
+  padding-bottom: 0px;
+}
+
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  background: #ddd;
+  border-radius: 50%;
+}
+
+.info h2 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.location, .about-me {
+  margin-top: 0.5rem;
+}
+
+.skills-title {
+  margin-top: 2rem;
+  font-size: 1.5rem;
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.skill-tag {
+  background: #9EE3D7;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  border: 1px solid black;
+  width: 171px;
+  height: 58px;
+}
+
+/* Works展示 */
+.works-title {
+  margin-top: -10px;
+  font-size: 40px;
+}
+
+.works-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 0rem;
+}
+
+.work-card {
+  border: none;
+  padding: 1rem;
+  width: 324px;
+  height: 216px;
+  text-align:start;
+  font-size: 16px;
+}
+
+.work-card img {
+  width: 324px;
+  height: 216px;
+}
+
+.price {
+  font-size: 16px;
+  padding: 5px;
+}
+
+/* Price List */
+.price-list {
+  background: rgba(255, 184, 108, 0.8);
+  border-radius: 1rem;
+  padding: 7dvi 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  margin-top: 90px;
+  padding-top: 30px;
+}
+
+.price-title {
+  font-size: 1.8rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  margin-top: auto;
+  padding-top: 0px;
+}
+
+.pricelist-table {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 12px;
+  font-size: 14px;
+  border-collapse: collapse;
+  background-color: #F3F0D0;
+  opacity: 0.62; 
+  text-align: center;
+}
+.pricelist-table th,
+.pricelist-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+  font-weight: normal;
+}
+.category-tag {
+  background: #9EE3D7;
+  padding-top: 2px;
+  border-radius: 2rem;
+  border: 1px solid black;
+  width: 86px;
+  height: 29px;
+  font-size: 12px;
+  text-align: center;
+  margin-bottom: 48px;
+  padding-top: 5px;
+}
+
+.information-box {
+  padding: 10px;
+  background-color: #FFF9E8;
+  width: 504px;
+  height: 253px;
+  display: flex;
+  flex-direction: column; 
+  justify-content: center; 
+  
+}
+
+.information-section {
+  padding-top: 70px;
+}
+.background-title {
+  font-size: 1.4rem;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.background-price {
+  color: #CF0003;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.background-note {
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 0.2rem;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+  padding-right: 40px;
+  padding-bottom: 20px;
+}
+
+.edit-button,
+.delete-button {
+  padding: 10px 25px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1.2em;
+  font-weight: bold;
+  width: 241px;
+  height: 56px;
+
+
+}
+
+.edit-button {
+  background-color: #6DD3C0;
+  color: #FFFFFF;
+  font: 1em sans-serif;
+  border: none;
+
+}
+
+.delete-button {
+  background-color: #E62727;
+  color: #FFFFFF;
+  font: 1em sans-serif;
+  border: none;
+}
+.edit-button:active,
+.delete-button:active {
+border: 1px solid black; 
+}
+
+.delete-button[data-th="ลบ"] , .edit-button[data-th="แก้ไข"] {
+  padding-top: 8px;
+  text-align: center;
+  line-height: 56px;
+}
